@@ -158,6 +158,30 @@ int main()
     }
 }
 
+// 07. Criar programa que leia dois conjuntos de números inteiros, tendo cada um 10 e 20 elementos e apresente os elementos comuns aos conjuntos.
+// lembre-se de que os elementos podem se repetir mas não podem aparecer repetidos na saída.
+#define TRUE 1
+#define FALSE 0
+#define TAMARRAY10 10
+#define TAMARRAY20 20
+#include <stdio.h>
+int main()
+{
+    int i, j, aux;
+    int igual;
+    int array10[TAMARRAY10] = {6, 8, 9, 16, 10, 89, 92, 19, 10, 7};
+    int array20[TAMARRAY20] = {1, 2, 3, 4, 5, 6, 16, 8, 9, 10, 89, 11, 12, 92, 13, 14, 15, 100, 500, 0};
+    
+    for(i = 0; i < TAMARRAY20; i++){
+        aux = array20[i];
+        igual = FALSE;
+        for(j = 0; j < TAMARRAY10; j++){
+            if(aux == array10[j]) igual = TRUE;
+        }
+        if(igual == FALSE) printf("%d \n", aux);
+    }
+}
+
 // 08. Criar programa que leia dados de 20 elementos inteiros. imprimir o maior e o menor, sem ordenar, o percentual de números pares e a
 // media dos elementos do vetor
 #define TAM 20
