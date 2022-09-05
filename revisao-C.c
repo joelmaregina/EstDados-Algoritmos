@@ -22,7 +22,6 @@ int main()
 
 /* 02. Entrar com a idade de varias pessoas ate o usuário informar que deseja parar. e imprimir o total de pessoas com menos de 21 e total de pessoas
 maiores que 50 */
-
 int main()
 {
    int idade;
@@ -47,7 +46,6 @@ int main()
 
 // 03. Dado um pais A, com 5.000.000 de habitantes e uma taxa de natalidade de 3% ao ano, e um pais B com 7.000.000 de habitantes e uma taxa de
 // natalidade de 2% ao ano. calcular e imprimir o tempo necessário para que a população do pais A ultrapasse a população do pais B
-
 int main()
 {
     int i;
@@ -65,7 +63,6 @@ int main()
 
 // 04. Chico tem 1.50m e cresce 2 centímetros por ano, enquanto Juca tem 1.10m e  cresce 3 cm por ano. construir um programa que calcule e imprima
 // quantos anos serão necessários para Juca seja maior que Chico;
-
 int main()
 {
     int i;
@@ -167,7 +164,6 @@ int main(){
 #define FALSE 0
 #define TAMARRAY10 10
 #define TAMARRAY20 20
-#include <stdio.h>
 int main()
 {
     int i, j, aux;
@@ -268,3 +264,55 @@ int main()
         printf("------------------------------\n");
     }
 }
+
+// 11. Criar e armazenar uma matriz a 10x10 e gerar e imprimir a matriz invertida
+#define TAM 10 
+int main ()
+{
+    int i, j, k, l;
+    int matriz[TAM][TAM];
+    // Matriz usada para o teste inicial:
+    // int matriz[TAM][TAM] = {{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+    //                         {11, 12, 13, 14, 15, 16, 17, 18, 19, 20},
+    //                         {21, 22, 23, 24, 25, 26, 27, 28, 29, 30}, 
+    //                         {31, 32, 33, 34, 35, 36, 37, 38, 39, 40}, 
+    //                         {41, 42, 43, 44, 45, 46, 47, 48, 49, 50}, 
+    //                         {51, 52, 53, 54, 55, 56, 57, 58, 59, 60}, 
+    //                         {61, 62, 63, 64, 65, 66, 67, 68, 69, 70}, 
+    //                         {71, 72, 73, 74, 75, 76, 77, 78, 79, 80}, 
+    //                         {81, 82, 83, 84, 85, 86, 87, 88, 89, 90}, 
+    //                         {91, 92, 93, 94, 95, 96, 97, 98, 99, 100}};
+    int invertida[TAM][TAM];
+    
+    // Formando a matriz Normal: 
+    for(i = 0; i < TAM ; i++){
+        for(j = 0; j < TAM; j++){
+            printf("Digite o valor a ser armazenado na posição [%d][%d] da matriz normal: ", i, j);
+            scanf("%d", &matriz[i][j]);
+        }
+    }
+    
+    // Formando a matriz invertida:
+    for(i = 9, j = 0; i >= 0 ; i--, j++){
+        for(k = 9, l = 0; k >= 0; k--, l++){
+            invertida[j][l] = matriz[i][k];
+        }
+    }
+    
+    printf("=========== Imprimindo a Matriz Normal: ===========\n");
+    for(i = 0; i < TAM; i++){
+        for(j = 0; j < TAM; j++){
+            printf(" %d ", matriz[i][j]);
+        }
+        printf("\n");
+    }
+    https://www.onlinegdb.com/#tab-stdin
+    printf("\n========= Imprimindo a Matriz Invertida: =========\n");
+    for(i = 0; i < TAM; i++){
+        for(j = 0; j < TAM; j++){
+            printf(" %d ", invertida[i][j]);
+        }
+        printf("\n");
+    }
+}  
+  
