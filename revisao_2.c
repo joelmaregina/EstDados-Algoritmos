@@ -209,7 +209,7 @@ int main()
 #define TAM 10
 int main()
 {
-    int vetor[TAM][TAM] = {{3, 43, 5, 66, 8, 3, 64, 5, 36, 8},
+    int matriz[TAM][TAM] = {{3, 43, 5, 66, 8, 3, 64, 5, 36, 8},
                             {6, 7, 8, 9, 10, 11, 16, 5, 3, 18}, 
                             {1, 55, 2, 77, 9, 1, 5, 226, 7, 91},
                             {1, 2, 11, 2, 1, 1, 25, 17, 29, 12}, 
@@ -223,7 +223,7 @@ int main()
     
     for(i = 0; i < TAM ; i++){
         for(j = 0; j < TAM; j++){
-            if(i > j) printf(" %d ", vetor[i][j]);
+            if(i > j) printf(" %d ", matriz[i][j]);
         }    
     }
 }
@@ -284,42 +284,90 @@ int main()
 #include <stdio.h>
 // 7) Que declare uma matriz 5x5 e armazene em um vetor o MAIOR elemento cadastrado em cada COLUNA da matriz,
 // e em um vetor b o menor elemento cadastrado em cada coluna da matriz e imprima: a) toda a matrix; b) o vetor a; c) o vetor b; d)(a+b)/2
-#define TAM 3
-// *******************************INCOMPLETA!!*********************************************
+#define TAM 5
 int main()
 {
-    int vetor[TAM][TAM] = {{9,8,7},
-                       {4, 5, 6},
-                       {7, 2, 9}};
-    int maior[TAM];
-    int menor[TAM];
+    float matriz[TAM][TAM] = {{19, 8, 7, 16, 26},
+                           {44, 600, 6, 89, 92},
+                           {16, -5, 572, 35, 11},
+                           {68, 5, 61, -55, 8},
+                           {71, 252, 9, 10, 9}};
+    float maior[TAM];
+    float menor[TAM];
     int menorValor, maiorValor;
-    int i,j;
+    float resultado[TAM];
+    int i , j, k;
 
-   
-    for (i = 0 ; i < TAM ; i++){
-        for (j = 0; j < TAM ; j++){
-            menorValor = vetor [j][i];
-            maiorValor = vetor [j][i];
-            if (menorValor > vetor [j][i]){
-                menorValor=vetor [j][i];
+    printf("\n TODA A MATRIZ: \n");
+    for (j = 0 ; j < TAM ; j++){
+        for (i = 0; i < TAM ; i++){
+            menorValor = matriz[i][j];
+            maiorValor = matriz[i][j];
+            for(k = 0; k < TAM ; k++){
+                if (matriz[k][j] < menorValor) menorValor = matriz[k][j];
+                if (matriz[k][j] > maiorValor) maiorValor = matriz[k][j];
             }
-           
-            if (maiorValor < vetor [j][i]){
-                maiorValor = vetor [j][i];
-            }
+            //a) Imprime toda a matriz:
+            printf(" %.2f ", matriz[j][i]);
         }
-         menor [i] = menorValor;
-         maior [i] = maiorValor;
+        menor [j] = menorValor;
+        maior [j] = maiorValor;
+        printf("\n");
     }
    
-   
+   //b) Imprime o vetor maior:
+    printf("\n MAIORES:\n");
     for (i = 0; i < TAM ; i++) {
-        printf("%d\n", maior[i]);
+        printf("%.2f ", maior[i]);
     }
-    printf("__________________\n");
-   
+    printf("\n__________________\n\n");
+    
+    //c) Imprime o vetor menor:
+    printf("\n MENORES:\n");
     for (i = 0; i < TAM ; i++) {
-        printf("%d\n", menor[i]);
+        printf("%.2f ", menor[i]);
+    }
+        printf("\n__________________\n\n");
+    
+    //d) Faz a operação (a+b)/2 e imprime:
+    printf("\n RESULTADO:\n");
+    for(i = 0; i < TAM; i++){
+        resultado[i] =  (maior[i] + menor[i])/2;
+        printf("%.2f ", resultado[i]);
     }
 }
+
+//8) Que deixe entrar com valores de uma matriz de ordem cinco e verificar se ela é ou nao uma matriz triangular superior.
+#include <stdio.h>
+#define TAM 5
+
+int main()
+{
+    int matriz[TAM][TAM];
+    int i, j;
+    int cont = 0;
+    
+    for (i = 0; i < TAM ; i++){
+        for(j = 0; j < TAM ; j++){
+           printf("\n Array [%d][%d]: ", i, j);
+           scanf("%d", &matriz[i][j]);
+        }
+    }
+    
+    for (i = 0; i < TAM ; i++){
+        for(j = 0; j < TAM ; j++){
+           if((i < j || i == j) && matriz[i][j] != 0) cont ++;
+           if(i > j && matriz[i][j] == 0) cont ++;
+        }
+    }
+    printf("\n ------------------------------- \n");
+    for(i = 0; i < TAM; i++){
+        for(j = 0; j < TAM; j++) printf(" %d ", matriz[i][j]);
+        printf("\n");
+    }
+    printf("\n ------------------------------- \n");
+    
+    if(cont == TAM*TAM) printf("A matriz digitada É uma matriz Triagular Superior.");
+    else printf("A matriz digitada NÃO É uma matriz Triagular Superior.");
+}
+
