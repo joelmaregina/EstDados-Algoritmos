@@ -178,8 +178,34 @@ int main()
     for(i = 0; i < TAM-cont; i++) printf(" %d ", vet2[i]);
 }
 
+// 4) Que armazene 10 numeros em um vetor. Na entrada de dados, o numero ja deve ser armazenado na
+// sua posição definitiva em ordem decrescente. imprimir o vetor logo apos a entrada de dados;
 #include <stdio.h>
-//04. Que leia os elemntos de uma matrix 10x10 e mostre somente os elementos abaixo da diagonal;
+#define TAM 10
+int main()
+{
+    int i, j, k, l, aux;
+    int array[10] = {1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000};
+    
+    printf("Digite números abaixo de 1000: ");    
+    for (i = 0; i < TAM ; i++){
+       printf("\n Array [%d]: ", i);
+       scanf("%d", &array[i]);
+       for(j = 1 ; j < TAM; j++){
+           aux = array[j];
+            for( k = j - 1; k >= 0 && aux < array[k] ; k--){
+                array[k+1] = array[k];
+            }
+            array[k+1] = aux;
+        }
+        printf("\n O vetor ordenado é igual a: \n");
+        for (l = 0 ; l < TAM ; l++) printf("%d  ", array[l]);
+    }
+  
+}
+
+#include <stdio.h>
+//5) Que leia os elemntos de uma matrix 10x10 e mostre somente os elementos abaixo da diagonal;
 #define TAM 10
 int main()
 {
