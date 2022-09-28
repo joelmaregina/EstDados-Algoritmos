@@ -185,15 +185,15 @@ int main()
 int main()
 {
     int i, j, k, l, aux;
-    int array[10] = {1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000};
+    int array[10] = {0, 0, 0, 0, 0, 0,0, 0, 0, 0};
     
-    printf("Digite números abaixo de 1000: ");    
+    printf("Digite números acima de 0: ");    
     for (i = 0; i < TAM ; i++){
        printf("\n Array [%d]: ", i);
        scanf("%d", &array[i]);
        for(j = 1 ; j < TAM; j++){
            aux = array[j];
-            for( k = j - 1; k >= 0 && aux < array[k] ; k--){
+            for( k = j - 1; k >= 0 && aux > array[k] ; k--){
                 array[k+1] = array[k];
             }
             array[k+1] = aux;
