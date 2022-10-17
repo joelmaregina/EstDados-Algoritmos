@@ -420,18 +420,18 @@ DataDaPascoa descobreDataPascoa (int ano){
   c = ano % 100;
   d = b / 4;
   e = b % 4;
-  f = (8 + b)/25;
-  g = (b - f + 1) / 3;
+  f = (8 + b)/25; // <== Não é (8 * b)
+  g = (b - f + 1) / 3; // <== Não estava no enunciado
   h = (19 * a + b - d - g + 15) % 30;
   j = c / 4;
   k = c % 4;
   m = (a + (11 * h)) / 319;
-  r = ((2 * e) + (2 * j) - h - k + 32) % 7;
-  o = (a + 11 * h + 22 * r )/ 451;
-  n = (h + r - 7 * o + 114) / 31; // Mês
-  p = 1 + (h + r - 7 * o + 114) % 31; // Dia
+  r = ((2 * e) + (2 * j) - h - k + 32) % 7; // <== Não adciona "m"
+  o = (a + 11 * h + 22 * r )/ 451; // <== Não estava  no enunciado
+  n = (h + r - 7 * o + 114) / 31; // MÊS <== Totalmente diferente
+  p = 1 + (h + r - 7 * o + 114) % 31; // DIA <== Totalmente diferente
 
-  // Como está na questão, possui alguns erros de digitação e variável G e O presentes acima acima estão faltando.
+  // Como está no enunciado da questão, possui alguns erros de digitação (no "f" e "r"), as variáveis "g" e "o" presentes acima estão faltando e as variáveis "n" e "p" estão totalmente diferentes:
   // a = ano % 19;
   // b = ano / 100;
   // c = ano % 100;
@@ -442,7 +442,7 @@ DataDaPascoa descobreDataPascoa (int ano){
   // j = c / 4;
   // k = c % 4;
   // m =  (a + (11 * h)) / 319;
-  // r = ((2 * e) + (2 * j) - k - h + m) % 7;
+  // r = ((2 * e) + (2 * j) - k - h + m + 32) % 7;
   // n = (h - m + r + 90 ) / 25;
   // p = (h - m + r + n + 1) % 32;
 
