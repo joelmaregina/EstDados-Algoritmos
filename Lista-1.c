@@ -388,6 +388,82 @@ int ehBissexto(int ano){
   }
 }
 
+#include <stdio.h>
+//Q01.6 Uma função que receba como parâmetro o ano e retorne a data da Páscoa. O domingo de Páscoa é o primeiro domingo depois da primeira lua cheia do outono. Utilize o seguinte algoritmo, criado em 1800 pelo matemático Carl Gauss:
+// ■ suponha que y seja o ano (como 1800 ou 2001);
+// ■ divida y por 19 e chame o resto de a. Ignore o quociente;
+// ■ divida y por 100 para obter o quociente b e o resto c;
+// ■ divida b por 4 para obter o quociente d e o resto e;
+// ■ divida 8 * b + 13 por 25 para obter o quociente g. Ignore o resto;
+// ■ divida 19 * a + b - d - g + 15 por 30 para obter o quociente h. Ignore o resto;
+// ■ divida c por 4 para obter o quociente j e o resto k;
+// ■ divida a + 11 * h por 319 para obter o quociente m. Ignore o resto;
+// ■ divida 2 * e + 2 * j - k - h + m + 32 por 7 para obter o resto r. Ignore o quociente;
+// ■ divida h - m + r + 90 por 25 para obter o quociente n. Ignore o resto;
+// ■ divida h - m + r + n + 19 por 32 para obter o resto p. Ignore o quociente.
+
+typedef struct data{
+    int dia;
+    int mes;
+    int ano;
+} DataDaPascoa;
+
+DataDaPascoa descobreDataPascoa(int ano);
+
+DataDaPascoa descobreDataPascoa (int ano){
+  DataDaPascoa dataPascoa;
+  int a, b, c, d, e, f, g, h, j, k, m, r, n, p, o;
+
+  //Algoritmo de Meeus/Jones/Butcher
+  a = ano % 19;
+  b = ano / 100;
+  c = ano % 100;
+  d = b / 4;
+  e = b % 4;
+  f = (8 + b)/25;
+  g = (b - f + 1) / 3;
+  h = (19 * a + b - d - g + 15) % 30;
+  j = c / 4;
+  k = c % 4;
+  m = (a + (11 * h)) / 319;
+  r = ((2 * e) + (2 * j) - h - k + 32) % 7;
+  o = (a + 11 * h + 22 * r )/ 451;
+  n = (h + r - 7 * o + 114) / 31; // Mês
+  p = 1 + (h + r - 7 * o + 114) % 31; // Dia
+
+  // Como está na questão, possui alguns erros de digitação e variável G e O presentes acima acima estão faltando.
+  // a = ano % 19;
+  // b = ano / 100;
+  // c = ano % 100;
+  // d = b / 4;
+  // e = b % 4;
+  // g = ((8 * b) + 13)/25; 
+  // h = ((19 * a) + b - d - g + 15) / 30;
+  // j = c / 4;
+  // k = c % 4;
+  // m =  (a + (11 * h)) / 319;
+  // r = ((2 * e) + (2 * j) - k - h + m) % 7;
+  // n = (h - m + r + 90 ) / 25;
+  // p = (h - m + r + n + 1) % 32;
+
+  dataPascoa.dia = p;
+  dataPascoa.mes = n;
+  dataPascoa.ano = ano;
+  
+  return dataPascoa;
+}
+
+int main(){
+    int ano;
+    DataDaPascoa dataDaPascoa;
+  
+    printf("Digite o ano a ser descoberto a data da Páscoa: ");
+    scanf("%d", &ano);
+
+    dataDaPascoa = descobreDataPascoa(ano);
+    printf("A data da páscoa do ano de %d é %d/%d/%d", ano, dataDaPascoa.dia, dataDaPascoa.mes, dataDaPascoa.ano);
+}
+
 // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
 // Q02. => Considere uma aplicação para armazenar os seguintes dados de uma pessoa em uma agenda de endereços:
