@@ -1,5 +1,5 @@
 #include <stdio.h>
-// Q01. => uma função que recebe como parâmetro o dia, o mês, o ano e uma estrutura do tipo Data, onde o resultado deve
+// Q01.1 => uma função que recebe como parâmetro o dia, o mês, o ano e uma estrutura do tipo Data, onde o resultado deve
 // ser armazenado, e retorna verdadeiro se a data estiver válida; caso contrário, retorna falso. A validação da data pode
 // ser feita da seguinte forma:
 // ■ meses com 30 dias: 04, 06, 09 e 11;
@@ -48,10 +48,9 @@ int validaData(int dia, int mes, int ano){
     return valor;
 }
 
-// |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 #include <stdio.h>
 #include <stdlib.h>
-// Q01.1 => Uma função que recebe como parâmetro uma data do tipo string (no formato DD/MM/AAAA) e uma estrutura do
+// Q01.2 => Uma função que recebe como parâmetro uma data do tipo string (no formato DD/MM/AAAA) e uma estrutura do
 // tipo Data, onde o resultado deve ser armazenado, e retorna verdadeiro se a data estiver válida; caso contrário, retorna
 // falso;
 #define VERDADEIRO 1
@@ -138,6 +137,258 @@ Data quebraData(char stringData[]){
     
     return dataQuebrada;
 }
+
+#include <stdio.h>
+//Q01.3 Uma função que recebe como parâmetro uma estrutura do tipo Data e um número inteiro, e retorna a soma do número de dias da data recebida;
+#define VERDADEIRO 1
+#define FALSO 0
+typedef struct data{
+    int dia;
+    int mes;
+    int ano;
+} Data;
+int validaData(int dia, int mes, int ano);
+int ehBissexto(int ano);
+
+int main(){
+    Data inputData;
+    int valida;
+    int qtdDias;
+    int somaDias;
+    int inteiro;
+    int mes31 = 31;
+    int mes30 = 30;
+    
+    printf("Digite a data a ser contada os dias: ");
+    scanf("%d %d %d", &inputData.dia, &inputData.mes, &inputData.ano);
+    valida = validaData(inputData.dia, inputData.mes, inputData.ano);
+    if(valida == 0){
+      printf("A data digitada é falsa! Favor digitar uma data válida. \n");
+      return 0;
+    }
+    printf("Digite o intero a ser somado: ");
+    scanf("%d", &inteiro);
+    
+    int diasFev;
+    if(ehBissexto(inputData.ano)) diasFev = 29;
+    else diasFev = 28;
+
+    switch(inputData.mes){
+      case 1: qtdDias = inputData.dia; break;
+      case 2: qtdDias = mes31 + inputData.dia; break;
+      case 3: qtdDias = mes31 + diasFev + inputData.dia; break;
+      case 4: qtdDias = (mes31*2) + diasFev + inputData.dia; break;
+      case 5: qtdDias = (mes31*2) + mes30 + diasFev + inputData.dia; break;
+      case 6: qtdDias = (mes31*3) + mes30 + diasFev + inputData.dia; break;
+      case 7: qtdDias = (mes31*3) + (mes30*2) + diasFev + inputData.dia; break;
+      case 8: qtdDias = (mes31*4) + (mes30*2) + diasFev + inputData.dia; break;
+      case 9: qtdDias = (mes31*5) + (mes30*2) + diasFev + inputData.dia; break;
+      case 10: qtdDias = (mes31*5) + (mes30*3) + diasFev + inputData.dia; break;
+      case 11: qtdDias = (mes31*6) + (mes30*3) + diasFev + inputData.dia; break;
+      case 12: qtdDias = (mes31*6) + (mes30*4) + diasFev + inputData.dia; break;
+    }
+    
+    printf("A quantidade de dias deste ano é de: %d \n", qtdDias);
+    qtdDias += inteiro;
+    printf("A quantidade de dias deste ano é somada ao intero é de: %d", qtdDias);
+ 
+}
+
+
+int validaData(int dia, int mes, int ano){
+  int valor = VERDADEIRO;
+  int bissexto;
+  // Valida os meses de 30 dias:
+  if((mes == 4 || mes == 6 || mes == 9 || mes == 11) && dia > 30) valor = FALSO;
+  
+  // Confere se o ano é bisexto e a quantidade de dias do mês de Fevereiro a depender se o ano é bisexto ou não:
+  bissexto = ehBissexto(ano);
+  
+  if (mes == 2){
+    if ((bissexto == 1) && dia > 29) valor = FALSO;
+    else if ((bissexto == 0) && dia > 28) valor = FALSO;
+  }
+  
+  // Valida se as datas digitadas existem:
+  if(dia > 31 || dia < 1 || mes > 12 || mes  < 1 ) valor = FALSO;
+  
+  return valor;
+}
+
+int ehBissexto(int ano){
+  if ((ano % 4 == 0)  && ((ano % 100 != 0) || (ano % 400 == 0))){
+    return VERDADEIRO;
+  } else {
+    return FALSO;
+  }
+}
+
+#include <stdio.h>
+//Q01.4 Uma função que recebe como parâmetro uma estrutura do tipo Data e um número inteiro, e retorna a subtração do número de dias da data recebida;
+#define VERDADEIRO 1
+#define FALSO 0
+typedef struct data{
+    int dia;
+    int mes;
+    int ano;
+} Data;
+int validaData(int dia, int mes, int ano);
+int ehBissexto(int ano);
+
+int main(){
+    Data inputData;
+    int valida;
+    int qtdDias;
+    int somaDias;
+    int inteiro;
+    int mes31 = 31;
+    int mes30 = 30;
+    
+    //printf("Digite a data a ser contada os dias: ");
+    printf("Digite a data a ser subtraida os dias: ");
+    scanf("%d %d %d", &inputData.dia, &inputData.mes, &inputData.ano);
+    valida = validaData(inputData.dia, inputData.mes, inputData.ano);
+    if(valida == 0){
+      printf("A data digitada é falsa! Favor digitar uma data válida. \n");
+      return 0;
+    }
+    printf("Digite o intero a ser subtraido: ");
+    scanf("%d", &inteiro);
+    
+    int diasFev;
+    if(ehBissexto(inputData.ano)) diasFev = 29;
+    else diasFev = 28;
+
+    // Soma os dias e subtrai o inteiro?
+    // switch(inputData.mes){
+    //   case 1: qtdDias = inputData.dia; break;
+    //   case 2: qtdDias = mes31 + inputData.dia; break;
+    //   case 3: qtdDias = mes31 + diasFev + inputData.dia; break;
+    //   case 4: qtdDias = (mes31*2) + diasFev + inputData.dia; break;
+    //   case 5: qtdDias = (mes31*2) + mes30 + diasFev + inputData.dia; break;
+    //   case 6: qtdDias = (mes31*3) + mes30 + diasFev + inputData.dia; break;
+    //   case 7: qtdDias = (mes31*3) + (mes30*2) + diasFev + inputData.dia; break;
+    //   case 8: qtdDias = (mes31*4) + (mes30*2) + diasFev + inputData.dia; break;
+    //   case 9: qtdDias = (mes31*5) + (mes30*2) + diasFev + inputData.dia; break;
+    //   case 10: qtdDias = (mes31*5) + (mes30*3) + diasFev + inputData.dia; break;
+    //   case 11: qtdDias = (mes31*6) + (mes30*3) + diasFev + inputData.dia; break;
+    //   case 12: qtdDias = (mes31*6) + (mes30*4) + diasFev + inputData.dia; break;
+    // }
+  
+    // Ou subtrai os dias e o inteiro?
+    switch(inputData.mes){
+      case 1: qtdDias = 0 - inputData.dia; break;
+      case 2: qtdDias = 0 - mes31 - inputData.dia; break;
+      case 3: qtdDias = 0 - mes31 - diasFev - inputData.dia; break;
+      case 4: qtdDias = 0 - (mes31*2) - diasFev - inputData.dia; break;
+      case 5: qtdDias = 0 - (mes31*2) - mes30 - diasFev - inputData.dia; break;
+      case 6: qtdDias = 0 - (mes31*3) - mes30 - diasFev - inputData.dia; break;
+      case 7: qtdDias = 0 - (mes31*3) - (mes30*2) - diasFev - inputData.dia; break;
+      case 8: qtdDias = 0 - (mes31*4) - (mes30*2) - diasFev - inputData.dia; break;
+      case 9: qtdDias = 0 - (mes31*5) - (mes30*2) - diasFev - inputData.dia; break;
+      case 10: qtdDias = 0 - (mes31*5) - (mes30*3) - diasFev - inputData.dia; break;
+      case 11: qtdDias = 0 - (mes31*6) - (mes30*3) - diasFev - inputData.dia; break;
+      case 12: qtdDias = 0 - (mes31*6) - (mes30*4) - diasFev - inputData.dia; break;
+    }
+    
+    // printf("A quantidade de dias deste ano é de: %d \n", qtdDias);
+    printf("A subtração dos dias deste ano é de: %d \n", qtdDias);
+    // qtdDias += inteiro;
+    qtdDias -= inteiro;
+    printf("A quantidade de dias deste ano é subtraida ao intero é de: %d", qtdDias);
+ 
+}
+
+
+int validaData(int dia, int mes, int ano){
+  int valor = VERDADEIRO;
+  int bissexto;
+  // Valida os meses de 30 dias:
+  if((mes == 4 || mes == 6 || mes == 9 || mes == 11) && dia > 30) valor = FALSO;
+  
+  // Confere se o ano é bisexto e a quantidade de dias do mês de Fevereiro a depender se o ano é bisexto ou não:
+  bissexto = ehBissexto(ano);
+  
+  if (mes == 2){
+    if ((bissexto == 1) && dia > 29) valor = FALSO;
+    else if ((bissexto == 0) && dia > 28) valor = FALSO;
+  }
+  
+  // Valida se as datas digitadas existem:
+  if(dia > 31 || dia < 1 || mes > 12 || mes  < 1 ) valor = FALSO;
+  
+  return valor;
+}
+
+int ehBissexto(int ano){
+  if ((ano % 4 == 0)  && ((ano % 100 != 0) || (ano % 400 == 0))){
+    return VERDADEIRO;
+  } else {
+    return FALSO;
+  }
+}
+
+#include <stdio.h>
+//Q01.5 Uma função que recebe como parâmetro uma data e escreve essa data por extenso. Por exemplo, 25/03/2007 deve ser escrito como 25 de março de 2007.
+// A função deve retornar verdadeiro se a operação for realizada com sucesso e falso, caso contrário;
+#define VERDADEIRO 1
+#define FALSO 0
+typedef struct data{
+    int dia;
+    int mes;
+    int ano;
+} Data;
+int validaData(int dia, int mes, int ano);
+int ehBissexto(int ano);
+
+int main(){
+    Data inputData;
+    int valida;
+    char meses[12][10] = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
+    
+    printf("Digite a data a ser escrita por extenso: ");
+    scanf("%d %d %d", &inputData.dia, &inputData.mes, &inputData.ano);
+  
+    valida = validaData(inputData.dia, inputData.mes, inputData.ano);
+    if(valida == 0){
+      printf("A data digitada é falsa! Favor digitar uma data válida. \n");
+      return 0;
+    } else {
+      printf("A data digitada é válida! \n");
+      printf("Data por extenso: %d de %s de %d", inputData.dia, meses[inputData.mes - 1] , inputData.ano);
+    }
+}
+
+
+int validaData(int dia, int mes, int ano){
+  int valor = VERDADEIRO;
+  int bissexto;
+  // Valida os meses de 30 dias:
+  if((mes == 4 || mes == 6 || mes == 9 || mes == 11) && dia > 30) valor = FALSO;
+  
+  // Confere se o ano é bisexto e a quantidade de dias do mês de Fevereiro a depender se o ano é bisexto ou não:
+  bissexto = ehBissexto(ano);
+  
+  if (mes == 2){
+    if ((bissexto == 1) && dia > 29) valor = FALSO;
+    else if ((bissexto == 0) && dia > 28) valor = FALSO;
+  }
+  
+  // Valida se as datas digitadas existem:
+  if(dia > 31 || dia < 1 || mes > 12 || mes  < 1 ) valor = FALSO;
+  
+  return valor;
+}
+
+int ehBissexto(int ano){
+  if ((ano % 4 == 0)  && ((ano % 100 != 0) || (ano % 400 == 0))){
+    return VERDADEIRO;
+  } else {
+    return FALSO;
+  }
+}
+
+// |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
 // Q02. => Considere uma aplicação para armazenar os seguintes dados de uma pessoa em uma agenda de endereços:
 // nome, endereço e telefone. Especifique um TAD para armazenar os dados das pessoas e as operações
@@ -267,6 +518,8 @@ int excluirPessoa(Pessoa contatos[],int qtdPessoas){
     return qtdPessoas;
   }
 }
+
+// |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
 // Q03. => Considere uma aplicação para armazenar os seguintes dados de carros para uma garagem: placa, marca/modelo e cor.
 // Especifique um TAD para armazenar os dados dos carros e as operações necessárias para inserir, consultar e excluir os dados dos carros.
@@ -398,6 +651,8 @@ int excluirCarro(Carro carros[],int qtdCarros){
     return qtdCarros; 
   }
 }
+
+// |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
 // Q04. =>  Considere uma empresa que precisa armazenar os seguintes dados de um cliente: 
 // ■ Nome completo;
