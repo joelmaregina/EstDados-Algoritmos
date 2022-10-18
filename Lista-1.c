@@ -471,6 +471,7 @@ int main(){
 // necessárias para inserir, consultar e excluir os dados das pessoas.
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define TAMNOME 41
 #define TAMEND 101
@@ -531,23 +532,29 @@ int main(){
 }
 
 int inscreverPessoa(Pessoa contatos[],int qtdPessoas){
-  
+  char telefone[TAMNUM];
   printf("============ CADASTRO DE CONTATOS ============ \n");
-  contatos[qtdPessoas].id = getId();
 
   getchar();
+  printf("Digite o seu Telefone: \n");
+  fgets(telefone, TAMNUM, stdin);
+  getchar();
+  for(int i = 0; i < qtdPessoas; i ++){
+    if(strcmp(contatos[i].numero, telefone) == 0){
+      printf("Este número de telefone já está cadastrado! Tente novamente !\n");
+      return qtdPessoas;
+    }
+  }
+  strcpy(contatos[qtdPessoas].numero, telefone);
+  
+  contatos[qtdPessoas].id = getId();
+
   printf("Digite o seu nome: \n");
   fgets(contatos[qtdPessoas].nome, TAMNOME, stdin);
   getchar();
   
   printf("Digite o seu Endereço: \n");
   fgets(contatos[qtdPessoas].endereco, TAMEND, stdin);
-  getchar();
-  
-  printf("Digite o seu Telefone: \n");
-  fgets(contatos[qtdPessoas].numero, TAMNUM, stdin);
-  getchar();
-
   
   qtdPessoas++;
   return qtdPessoas;
@@ -561,7 +568,7 @@ int getId() {
 
 void listarContatos(Pessoa contatos[],int qtdPessoas){
   if(qtdPessoas == 0){
-    printf("\n Não há contatos cadastrados! \n");
+    printf("\n Não há contatos cadastrados ainda! \n"); 
   } else {
     printf("\n ============ LISTA DE CONTATOS ============\n");
     for (int i = 0; i < qtdPessoas; i++) {
@@ -574,7 +581,7 @@ void listarContatos(Pessoa contatos[],int qtdPessoas){
 int excluirPessoa(Pessoa contatos[],int qtdPessoas){
   int id;
   if(qtdPessoas == 0){
-    printf("\n Não há contatos cadastrados! \n"); 
+    printf("\n Não há contatos cadastrados ainda! \n"); 
     return qtdPessoas;
   } else {
     printf("Digite o id da pessoa que gostaria de excluir: \n");
@@ -597,9 +604,10 @@ int excluirPessoa(Pessoa contatos[],int qtdPessoas){
 
 // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
-// Q03. => Considere uma aplicação para armazenar os seguintes dados de carros para uma garagem: placa, marca/modelo e cor.
+// Q03. => Considere uma aplicação para armazenar os seguintes dados de carros para uma garagem: placa, marca/modelo e cor. 
 // Especifique um TAD para armazenar os dados dos carros e as operações necessárias para inserir, consultar e excluir os dados dos carros.
 #include <stdio.h>
+#include <string.h>
 
 #define NUMCARROS 50
 #define TAMPLACA 8
@@ -660,14 +668,24 @@ int main(){
 }
 
 int inscreveCarro(Carro carros[],int qtdCarros){
-  
+  char placaDoCarro[TAMPLACA];
   printf("============ CADASTRO DE CARROS ============ \n");
-  carros[qtdCarros].id = getId();
 
   getchar();
   printf("Digite a placa do carro: \n");
-  fgets(carros[qtdCarros].placa, TAMPLACA, stdin);
+  fgets(placaDoCarro, TAMPLACA, stdin);
+  // Transforma as letras da placa em maiúsculas :
+  for(int i = 0; i < TAMPLACA; i++) if(placaDoCarro[i] >= 'a' && placaDoCarro[i] <= 'z') placaDoCarro[i] -= 32;
   getchar();
+  for(int i = 0; i < qtdCarros; i ++){
+    if(strcmp(carros[i].placa, placaDoCarro) == 0){
+      printf("Esta placa já está cadastrada! Tente novamente! \n");
+      return qtdCarros;
+    }
+  }
+  strcpy(carros[qtdCarros].placa, placaDoCarro);
+  
+  carros[qtdCarros].id = getId();
   
   printf("Digite a marca do carro: \n");
   fgets(carros[qtdCarros].marca, TAMNOME, stdin);
@@ -679,7 +697,6 @@ int inscreveCarro(Carro carros[],int qtdCarros){
   
   printf("Digite a cor do carro: \n");
   fgets(carros[qtdCarros].cor, TAMNOME, stdin);
-  getchar();
 
   qtdCarros++;
   return qtdCarros;
