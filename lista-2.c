@@ -1,3 +1,30 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define TAM 10
+#define TAMNOME 15
+//Q.01. Faça um programa que leia n nomes inserindo-os em uma lista de forma ordenada utilizando a ideia do algoritmo da inserção. No final, o programa deve mostrar todos os nomes ordenados alfabeticamente.
+
+int main()
+{
+  int i, j, k, l;
+  int numNomes;
+  char nomeAux[TAMNOME];
+  //  ARRAY USADO PARA TESTES
+  char nomes[TAM][TAMNOME]= {"Joelma", "Flavia", "Maria", "Luisa", "Priscila", "Ana", "Anna", "Patricia", "Mariana", "Alice"};
+
+  for (i = 0; i < TAM ; i++){
+    for(j = 1 ; j < TAM; j++){
+      strcpy(nomeAux, nomes[j]);
+      for( l = j - 1; TAM >= 0 && strcmp(nomes[l], nomes[l+1]) > 0; l--){
+        strcpy(nomes[l+1], nomes[l]);
+      }
+      strcpy(nomes[l+1], nomeAux);
+    }
+  }
+  for(i = 0; i < TAM; i++) printf("Nome %d: %s\n", i+1, nomes[i]);
+}
+
 //Q.02 Crie um programa que dado uma string, coloque as letras dela em ordem crescente pelo algoritmo da bolha.
 #include <stdio.h>
  #include <string.h>
