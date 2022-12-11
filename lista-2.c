@@ -3,7 +3,8 @@
 #include <string.h>
 #define TAM 10
 #define TAMNOME 15
-//Q.01. Faça um programa que leia n nomes inserindo-os em uma lista de forma ordenada utilizando a ideia do algoritmo da inserção. No final, o programa deve mostrar todos os nomes ordenados alfabeticamente.
+//Q.01. Faça um programa que leia n nomes inserindo-os em uma lista de forma ordenada utilizando a ideia do 
+// algoritmo da inserção. No final, o programa deve mostrar todos os nomes ordenados alfabeticamente.
 
 int main()
 {
@@ -52,6 +53,40 @@ int main()
     
     puts(string);
 }
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define TAM 10
+#define TAMNOME 15
+//Q.03 Faça um programa que leia n nomes e ordene-os pelo tamanho utilizando o algoritmo 
+//da SELEÇÃO. No final, o algoritmo deve mostrar todos os nomes ordenados.
+
+int main()
+{
+  int i, j, menor;
+  char troca[TAMNOME];
+  //  ARRAY USADO PARA TESTES
+  char nomes[TAM][TAMNOME]= {"Joelma", "Flavia", "Maria", "Luisa", "Priscila", "Ana", "Anna", "Patricia", "Mariana", "Alice"};
+
+  for (i = 0; i < TAM -1 ; i++){
+    menor = i;
+    for(j = i + 1; j < TAM; j++){
+      if (strcmp(nomes[j], nomes[menor]) < 0){
+        menor = j;
+      }
+    }
+    if(i != menor){
+      strcpy(troca, nomes[i]);
+      strcpy(nomes[i], nomes[menor]);
+      strcpy(nomes[menor], troca); 
+    }
+  }
+
+  for(i = 0; i < TAM; i++) printf("Nome %d: %s\n", i+1, nomes[i]);
+}
+
+//Q4 - QUESTÃO SOBRE HEAPSORT - ASSUNTO NÃO ABORDADO NA MATÉRIA
 
 #include <stdio.h>
 #include <string.h>
