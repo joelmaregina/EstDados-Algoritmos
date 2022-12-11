@@ -90,8 +90,8 @@ int main()
 
 #include <stdio.h>
 #include <string.h>
-#define TAM 50
-
+#define TAMNOME 10
+#define TAM 5
 // Q. 07 Faça uma função que, dado um valor inteiro N positivo, aloque dinamicamente um vetor de Aluno, leia do teclado os N pares de valores
 // (Matricula, Nota) e retorne o vetor alocado. Imprima, ao final do programa, duas listas: (1) alunos ordenados por nota final
 // e (2) alunos ordenados por número de matrícula. Utilize algoritmos de ordenação vistos em aula e justifique as suas escolhas.
@@ -99,24 +99,110 @@ int main()
 typedef struct _pessoa_ {
     unsigned int matricula;
     float nota;
+    char nome[TAMNOME];
 } Aluno;
 
+void listarOrdenadoPorMatricula(Aluno alunos[], int qtdAlunos);
+void listarOrdenadoPorNota(Aluno alunos[], int qtdAlunos);
+
+int menuAluno() {
+  int opcao;
+  printf("\n============ ÁREA DO ALUNO ============ \n");
+  printf("Digite a sua opção:\n  1 - Cadastrar Aluno \n  2 - Listar Alunos por Ordem de Nota \n  3 - Listar Alunos por Ordem de Matricula\n  0 - Retornar ao menu anterior\n");
+  scanf("%d", &opcao);
+  return opcao;
+}
 
 int main()
 {
     Aluno alunos[TAM];
     int qtdAlunos;
+
+    int opcao = 1;
+  
+    while (opcao != 0) {
+      opcao = menuAluno();
+  
+      switch (opcao) {
+        case 0:{
+          printf("\n ... RETORNANDO AO MENU ANTERIOR ... \n\n");
+          break;
+        } 
+        case 1: {
+          qtdAlunos = inscreveAluno(alunos, qtdAlunos);
+          break;
+        }
+        case 2: {
+          listarOrdenadoPorNota(alunos, qtdAlunos);
+          break;
+        }
+        case 3: {
+          listarOrdenadoPorMatricula(alunos, qtdAlunos);
+          break;
+        }
+        default:
+          printf("Opção Inválida. Digite um número entre 0 e 5.");
+      }
+    }
+  
+    return qtdAlunos;
 }
 
-int inscreveAluno (Aluno alunos[], int qtdAlunos){
+int inscreveAluno(Aluno alunos[], int qtdAlunos){
     
-     printf("============ CADASTRO DE ALUNOS ============ \n");
+    printf("\n\n============ CADASTRO DE ALUNOS ============ \n");
+    
+    getchar();
+    printf("Digite seu nome: ");
+    fgets(alunos[qtdAlunos].nome, TAMNOME, stdin);
     
     printf("Digite sua matricula: ");
     scanf("%u", &alunos[qtdAlunos].matricula);
     
     printf("Digite sua nota: ");
-    scanf("%u", &alunos[qtdAlunos].nota);
+    scanf("%f", &alunos[qtdAlunos].nota);
+
+    qtdAlunos++;
+    return qtdAlunos;
+}
+
+
+void listarOrdenadoPorNota(Aluno alunos[], int qtdAlunos){
+  int i, j, k;
+  Aluno alunoAux;
+  unsigned int aux;
+  
+  for(j = 1 ; j < qtdAlunos; j++){
+    aux = alunos[j].nota;
+    alunoAux = alunos[j];
+    for( k = j - 1; qtdAlunos >= 0 && aux > alunos[k].nota; k--){
+        alunos[k+1] = alunos[k];
+    }
+    alunos[k+1] = alunoAux;
+  }
+
+  printf("\n============ ALUNOS ORDENADOS POR NOTA ============ \n");
+  for(i = 0; i < qtdAlunos; i++) printf("Nota: %d | Nome: %s | ID: %f\n", alunos[i].nota, alunos[i].nome, alunos[i].matricula);
+
+}
+
+void listarOrdenadoPorMatricula(Aluno alunos[], int qtdAlunos){
+  int i, j, k;
+  Aluno alunoAux;
+  float aux;
+  
+  for(j = 1 ; j < qtdAlunos; j++){
+    aux = alunos[j].matricula;
+    alunoAux = alunos[j];
+    for( k = j - 1; qtdAlunos >= 0 && aux < alunos[k].matricula; k--){
+        alunos[k+1] = alunos[k];
+    }
+    alunos[k+1] = alunoAux;
+  }
+  
+  printf("\n============ ALUNOS ORDENADOS POR MATRICULA ============ \n");
+  for(i = 0; i < qtdAlunos; i++) printf("ID: %d | Nome: %s | Nota: %f\n", alunos[i].matricula, alunos[i].nome, alunos[i].nota);
+  
 }
 
 
