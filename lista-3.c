@@ -104,6 +104,7 @@ typedef struct _pessoa_ {
 
 void listarOrdenadoPorMatricula(Aluno alunos[], int qtdAlunos);
 void listarOrdenadoPorNota(Aluno alunos[], int qtdAlunos);
+int inscreveAluno(Aluno alunos[], int qtdAlunos);
 
 int menuAluno() {
   int opcao;
@@ -170,19 +171,19 @@ int inscreveAluno(Aluno alunos[], int qtdAlunos){
 void listarOrdenadoPorNota(Aluno alunos[], int qtdAlunos){
   int i, j, k;
   Aluno alunoAux;
-  unsigned int aux;
+  float aux;
   
   for(j = 1 ; j < qtdAlunos; j++){
     aux = alunos[j].nota;
     alunoAux = alunos[j];
-    for( k = j - 1; qtdAlunos >= 0 && aux > alunos[k].nota; k--){
+    for( k = j - 1; k >= 0 && aux < alunos[k].nota; k--){
         alunos[k+1] = alunos[k];
     }
     alunos[k+1] = alunoAux;
   }
 
   printf("\n============ ALUNOS ORDENADOS POR NOTA ============ \n");
-  for(i = 0; i < qtdAlunos; i++) printf("Nota: %d | Nome: %s | ID: %f\n", alunos[i].nota, alunos[i].nome, alunos[i].matricula);
+  for(i = 0; i < qtdAlunos; i++) printf("Nota: %f | Nome: %s | ID: %d\n", alunos[i].nota, alunos[i].nome, alunos[i].matricula);
 
 }
 
@@ -194,7 +195,7 @@ void listarOrdenadoPorMatricula(Aluno alunos[], int qtdAlunos){
   for(j = 1 ; j < qtdAlunos; j++){
     aux = alunos[j].matricula;
     alunoAux = alunos[j];
-    for( k = j - 1; qtdAlunos >= 0 && aux < alunos[k].matricula; k--){
+    for( k = j - 1; k >= 0 && aux > alunos[k].matricula; k--){
         alunos[k+1] = alunos[k];
     }
     alunos[k+1] = alunoAux;
