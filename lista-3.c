@@ -206,6 +206,7 @@ void listarOrdenadoPorMatricula(Aluno alunos[], int qtdAlunos){
   
 }
 
+
 #include <stdio.h>
 #include <string.h>
 #define TAM 15
@@ -241,6 +242,10 @@ int main()
     
     //Acha a posição da primeira aparição da chave através da busca binária:
     primeiraPosicao = buscaBinaria(vet, n, chave, posicoes);
+    if (primeiraPosicao == -1){
+     printf("O número digitado não está no array buscado!");
+     return 0;
+    } 
     printf("\n --> Primeira aparição: %d ", primeiraPosicao);
     
     //Contabiliza o número de aparições da chave no vetor e mostra as respectivas posições:
@@ -296,5 +301,4 @@ int buscaSequencial(int vet[], int n, int chave, int posicoes[], int primeiraPos
     
     return n;
 }
-
 
