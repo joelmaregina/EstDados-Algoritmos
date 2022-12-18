@@ -206,4 +206,95 @@ void listarOrdenadoPorMatricula(Aluno alunos[], int qtdAlunos){
   
 }
 
+#include <stdio.h>
+#include <string.h>
+#define TAM 15
+//Q.09 Refaça as funções de busca sequencial e busca binária assumindo que o vetor possui chaves que
+//podem ocorrer múltiplas vezes no vetor. Neste caso, você deve retornar, em um outro vetor, 
+//todas as posições onde a chave foi encontrada. 
+//Protótipo:
+//int busca(int vet[], int n, int chave, int posicoes[]);
+//Sua função deve retornar o número de ocorrências da chave no vetor e, para cada uma destas 
+//ocorrências, indicar no vetor posicoes[], as posições de vet que possuem a chave.
+
+void ordenaVet(int vetOrdenar[]);
+int buscaBinaria(int vet[], int n, int chave, int posicoes[]);
+int buscaSequencial(int vet[], int n, int chave, int posicoes[], int primeiraPosicao);
+
+int main()
+{
+    int vet[TAM] = {16, 6, 8, 6, 9, 7, 8, 16, 10, 6, 8, 15, 16, 10, 9};
+    int posicoes[TAM];
+    int n = 0;
+    int chave;
+    int primeiraPosicao;
+    
+    printf("Digite o número que você quer encontrar no vetor (exceto '-1'): ");
+    scanf("%d", &chave);
+    
+    // Zera o vetor de posições:
+    for(int i = 0; i < TAM; i++) posicoes[i] = -1;
+    
+    // Ordena o vetor para a busca binária:
+    ordenaVet(vet);
+    //for(int i = 0; i < TAM ; i++) printf(" \n %d ", vet[i]);
+    
+    //Acha a posição da primeira aparição da chave através da busca binária:
+    primeiraPosicao = buscaBinaria(vet, n, chave, posicoes);
+    printf("\n --> Primeira aparição: %d ", primeiraPosicao);
+    
+    //Contabiliza o número de aparições da chave no vetor e mostra as respectivas posições:
+    n =  buscaSequencial(vet, n, chave, posicoes, primeiraPosicao);
+    printf("\nNúmero de aparicões da chave digitada: %d \n", n);
+    printf("Posicões em que a chave aparece no vetor: \n");
+    for(int i = 0; posicoes[i] != -1; i++) printf(" %d ", posicoes[i]);
+}
+
+void ordenaVet(int vet[]){
+  int i, j, aux;
+  
+  for(i = 1; i < TAM; i++){
+    aux = vet[i];
+    for (j =  i - 1; j >= 0 && aux < vet[j] ; j--){
+      vet[j+1] = vet[j];
+    }
+    vet[j+1] = aux;
+  }
+}
+
+int buscaBinaria(int vet[], int n, int chave, int posicoes[]){
+    int posicao = -1;
+    int inicio = 0;
+    int meio;
+    int fim = TAM -1;
+  
+  while (inicio <= fim && posicao < 0){
+      meio = ((fim - inicio) / 2) + inicio;
+      if (vet[meio] == chave){
+          if (vet[meio-1] == chave) for(int i = meio; vet[i] == chave; i--) posicao = i;
+          else posicao = meio;
+      } else if (vet[meio] > chave){
+          fim = meio - 1;
+      } else {
+          inicio = meio + 1;
+      }
+  }
+  
+  return posicao;
+  
+}
+
+int buscaSequencial(int vet[], int n, int chave, int posicoes[], int primeiraPosicao){
+    int i, j;
+    
+    for (i = primeiraPosicao, j = 0; vet[i] == chave ; i++){
+        if (vet[i] == chave){
+          n++;
+          posicoes[j++] = i;
+        }
+    }
+    
+    return n;
+}
+
 
